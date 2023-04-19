@@ -23,10 +23,11 @@ struct SearchView: View {
                     
                     Spacer()
                 }
+                Text(currentSong.collectionName)
+                    .italic()
                 Text(currentSong.artistName)
                     
             }
-            .border(.purple)
         }
         .task{
             foundSongs = await NetworkService.fetch()
