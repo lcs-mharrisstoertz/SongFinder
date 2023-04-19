@@ -16,12 +16,20 @@ struct SearchView: View {
     var body: some View {
         List(foundSongs, id: \.trackId) { currentSong in
             
-            VStack{
-                Text(currentSong.trackName)
-                    .bold()
+            VStack(alignment: .leading) {
+                HStack{
+                    Text(currentSong.trackName)
+                        .bold()
+                    
+                    Spacer()
+                }
                 Text(currentSong.artistName)
-                
+                    
             }
+            .border(.purple)
+        }
+        .task{
+            foundSongs = await NetworkService.fetch()
         }
     }
 }
