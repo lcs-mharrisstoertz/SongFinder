@@ -30,7 +30,7 @@ struct SearchView: View {
             }
         }
         .task{
-            foundSongs = await NetworkService.fetch()
+            foundSongs = await NetworkService.fetch(resultsFor: "as it was")
         }
     }
 }
