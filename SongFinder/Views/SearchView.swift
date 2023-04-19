@@ -11,26 +11,31 @@ struct SearchView: View {
     
     //MARK: stored properties
     @State var foundSongs: [Song] = []
+    @State var searchText = ""
     
     //MARK: computed properties
     var body: some View {
-        List(foundSongs, id: \.trackId) { currentSong in
-            
-            VStack(alignment: .leading) {
-                HStack{
-                    Text(currentSong.trackName)
-                        .bold()
-                    
-                    Spacer()
+        NavigationView{
+            List(foundSongs, id: \.trackId) { currentSong in
+                
+                VStack(alignment: .leading) {
+                    HStack{
+                        Text(currentSong.trackName)
+                            .bold()
+                        
+                        Spacer()
+                    }
+                    Text(currentSong.collectionName)
+                        .italic()
+                    Text(currentSong.artistName)
+                        
                 }
-                Text(currentSong.collectionName)
-                    .italic()
-                Text(currentSong.artistName)
-                    
             }
+            .searchable(text: $searchText)
+            .task{
+                foundSongs = await NetworkService.fetch(resultsFor: "as it was")
         }
-        .task{
-            foundSongs = await NetworkService.fetch(resultsFor: "as it was")
+      
         }
     }
 }
